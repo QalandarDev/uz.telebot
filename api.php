@@ -88,9 +88,23 @@ class api
             $payload['parse_mode'] = $parse_mode;
         }
         if (!is_null($disable_notification)) {
-            $payload['disable_notificatio'] = $disable_notification;
+            $payload['disable_notification'] = $disable_notification;
         }
+        return self::_make_request($token, $method_url, $params = $payload);
+    }
+    public function set_webhook($token, $url)
+    {
+        $method_url = 'setWebhook';
+        $payload = ['url' => $url];
+        return self::_make_request($token, $method_url);
+    }
+    public function delete_webhook($token)
+    {
+        $method_url = 'deleteWebhook';
+        return self::_make_request($token, $method_url);
+    }
+    public function get_webhook_info($token)
+    {
 
     }
-
 }
