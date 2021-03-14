@@ -293,6 +293,75 @@ class api
 
         return $self::_make_request($token, $method_url, $payload);
     }
+    public function edit_message_live_location($token, $latitude, $longitude, $chat_id = null, $message_id = null, $inline_message_id = null, $reply_markup = null)
+    {
+        $method_url = 'editMessageLiveLocation';
+        $payload = ['longitude' => $longitude, 'latitude' => $latitude];
+        if ($chat_id) {
+            $payload['chat_id'] = $chat_id;
+        }
+
+        if ($message_id) {
+            $payload['message_id'] = $message_id;
+        }
+
+        if ($inline_message_id) {
+            $payload['inline_message_id'] = $inline_message_id;
+        }
+
+        if ($reply_markup) {
+            $payload['reply_markup'] = $reply_markup;
+        }
+
+        return $self::_make_request($token, $method_url, $payload);
+    }
+    public function stop_message_live_location($token, $chat_id = null, $message_id = null, $inline_message_id = null, $reply_markup = null)
+    {
+        $method_url = 'stopMessageLiveLocation';
+        $payload = array();
+        if ($chat_id) {
+            $payload['chat_id'] = $chat_id;
+        }
+
+        if ($message_id) {
+            $payload['message_id'] = $message_id;
+        }
+
+        if ($inline_message_id) {
+            $payload['inline_message_id'] = $inline_message_id;
+        }
+
+        if ($reply_markup) {
+            $payload['reply_markup'] = $reply_markup;
+        }
+
+        return $self::_make_request($token, $method_url, $payload);
+    }
+    public function send_venue($token, $chat_id, $latitude, $longitude, $title, $address, $foursquare_id = null, $foursquare_type = null, $disable_notification = null, $reply_to_message_id = null, $reply_markup = null)
+    {
+        $method_url = 'sendVenue';
+        $payload = ['chat_id' => $chat_id, 'latitude' => $latitude, 'longitude' => $longitude, 'title' => $title, 'address' => $address];
+        if ($foursquare_id) {
+            $payload['foursquare_id'] = $foursquare_id;
+        }
+        if ($foursquare_type) {
+            $payload['foursquare_type'] = $foursquare_type;
+        }
+        if ($disable_notification) {
+            $payload['disable_notification'] = $disable_notification;
+        }
+
+        if ($reply_to_message_id) {
+            $payload['reply_to_message_id'] = $reply_to_message_id;
+        }
+
+        if ($reply_markup) {
+            $payload['reply_markup'] = $reply_markup;
+        }
+
+        return $self::_make_request($token, $method_url, $payload);
+
+    }
     public function _convert_list_json_serializable($result)
     {
         return json_encode($result, JSON_PRETTY_PRINT);
