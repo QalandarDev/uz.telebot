@@ -226,7 +226,73 @@ class api
 
         return $self::_make_request($token, $method_url, $payload);
     }
+    public function send_photo($token, $chat_id, $photo, $caption = null, $reply_to_message_id = null, $reply_markup = null, $parse_mode = null, $disable_notification = null)
+    {
+        $method_url = 'sendPhoto';
+        $payload = ['chat_id' => $chat_id];
+        if (is_string($photo)) {
+            $payload['photo'] = $photo;
+        }
 
+        if ($caption) {
+            $payload['caption'] = $caption;
+        }
+
+        if ($reply_to_message_id) {
+            $payload['reply_to_message_id'] = $reply_to_message_id;
+        }
+
+        if ($reply_markup) {
+            $payload['reply_markup'] = $reply_markup;
+        }
+
+        if ($parse_mode) {
+            $payload['parse_mode'] = $parse_mode;
+        }
+
+        if ($disable_notification) {
+            $payload['disable_notification'] = $disable_notification;
+        }
+
+        return $self::_make_request($token, $method_url, $payload);
+    }
+    public function send_media_group($token, $chat_id, $media, $disable_notification = null, $reply_to_message_id = null)
+    {
+        $method_url = 'sendMediaGroup';
+        $media_json = json_encode($media);
+        $payload = ['chat_id' => $chat_id, 'media' => $media_json];
+        if ($disable_notification) {
+            $payload['disable_notification'] = $disable_notification;
+        }
+
+        if ($reply_to_message_id) {
+            $payload['reply_to_message_id'] = $reply_to_message_id;
+        }
+
+        return $self::_make_request($token, $method_url, $payload);
+    }
+    public function send_location($token, $chat_id, $latitude, $longitude, $live_period = null, $reply_to_message_id = null, $reply_markup = null, $disable_notification = null)
+    {
+        $method_url = 'sendLocation';
+        $payload = ['chat_id' => $chat_id, 'latitude' => $latitude, 'longitude' => $longitude];
+        if ($live_period) {
+            $payload['live_period'] = $live_period;
+        }
+
+        if ($reply_to_message_id) {
+            $payload['reply_to_message_id'] = $reply_to_message_id;
+        }
+
+        if ($reply_markup) {
+            $payload['reply_markup'] = $reply_markup;
+        }
+
+        if ($disable_notification) {
+            $payload['disable_notification'] = $disable_notification;
+        }
+
+        return $self::_make_request($token, $method_url, $payload);
+    }
     public function _convert_list_json_serializable($result)
     {
         return json_encode($result, JSON_PRETTY_PRINT);
