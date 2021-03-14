@@ -204,5 +204,36 @@ class api
         }
         return $self::_make_request($token, $method_url, $payload);
     }
+    public function send_dice($token, $chat_id, $emoji = null, $disable_notification = null, $reply_to_message_id = null, $reply_markup = null)
+    {
+        $method_url = 'sendDice';
+        $payload = ['chat_id' => $chat_id];
+        if ($emoji) {
+            $payload['emoji'] = $emoji;
+        }
+
+        if ($disable_notification) {
+            $payload['disable_notification'] = $disable_notification;
+        }
+
+        if ($reply_to_message_id) {
+            $payload['reply_to_message_id'] = $reply_to_message_id;
+        }
+
+        if ($reply_markup) {
+            $payload['rely_markup'] = $reply_markup;
+        }
+
+        return $self::_make_request($token, $method_url, $payload);
+    }
+
+    public function _convert_list_json_serializable($result)
+    {
+        return json_encode($result, JSON_PRETTY_PRINT);
+    }
+    public function _convert_markup($markup)
+    {
+        return json_encode($markup);
+    }
 
 }
