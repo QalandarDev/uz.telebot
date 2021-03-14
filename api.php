@@ -137,5 +137,72 @@ class api
         $payload = ['chat_id' => $chat_id];
         return $self::_make_request($token, $method_url, $payload);
     }
+    public function get_chat_members_count($token, $chat_id)
+    {
+        $method_url = 'getChatMembersCount';
+        $payload = ['chat_id' => $chat_id];
+        return $self::_make_request($token, $method_url, $payload);
+    }
+    public function set_chat_sticker_set($token, $chat_id, $stiker_set_name)
+    {
+        $method_url = 'setChatStikerSet';
+        $payload = ['chat_id' => $chat_id, 'sticker_set_name' => $stiker_set_name];
+        return $self::_make_request($token, $method_url, $payload);
+    }
+    public function delete_chat_stiker_set($token, $chat_id)
+    {
+        $method_url = 'deleteChatStickerSet';
+        $payload = ['chat_id' => $chat_id];
+        return $self::_make_request($token, $method_url, $payload);
+    }
+    public function get_chat_member($token, $chat_id, $user_id)
+    {
+        $method_url = 'getChatMember';
+        $payload = ['chat_id' => $chat_id, 'user_id' => $user_id];
+        return $self::_make_request($token, $method_url, $payload);
+    }
+    public function forward_message($token, $chat_id,
+        $from_chat_id, $message_id, $disable_notification = null) {
+        $method_url = 'forwardMessage';
+        $payload = ['chat_id' => $chat_id, 'from_chat_id' => $from_chat_id, 'message_id' => $message_id];
+        if ($disable_notification) {
+            $payload['disable_notification'] = $disable_notification;
+        }
+        return $self::_make_request($token, $method_url, $payload);
+    }
+    public function copy_message($token, $chat_id, $message_id, $caption = null,
+        $parse_mode = null, $caption_entities = null, $disable_notification = null,
+        $reply_to_message_id = null, $reply_markup = null, $allow_sending_without_reply = null) {
+        $method_url = 'copyMessage';
+        $payload = ['chat_id' => $chat_id, 'from_chat_id' => $from_chat_id, 'message_id' => $message_id];
+        if ($caption) {
+            $payload['caption'] = $caption;
+        }
+
+        if ($parse_mode) {
+            $payload['parse_mode'] = $parse_mode;
+        }
+
+        if ($caption_entities) {
+            $payload['caption_entities'] = $caption_entities;
+        }
+
+        if ($disable_notification) {
+            $payload['disable_notification'] = $disable_notification;
+        }
+
+        if ($reply_to_message_id) {
+            $payload['reply_to_message_id'] = $reply_to_message_id;
+        }
+
+        if ($reply_markup) {
+            $payload['reply_markup'] = $reply_markup;
+        }
+
+        if ($allow_sending_without_reply) {
+            $payload['allow_sending_without_reply'] = $allow_sending_without_reply;
+        }
+        return $self::_make_request($token, $method_url, $payload);
+    }
 
 }
