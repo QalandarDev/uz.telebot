@@ -105,6 +105,37 @@ class api
     }
     public function get_webhook_info($token)
     {
-
+        $method_url = 'getWebhookInfo';
+        return $self::_make_request($token, $method_url);
     }
+    public function get_Updates($token)
+    {
+        $method_url = 'getUpdates';
+        return $self::_make_request($token, $method_url);
+    }
+    public function get_user_profile_photos($token, $user_id)
+    {
+        $method_url = 'getUserProfilePhotos';
+        $payload = ['user_id' => $user_id];
+        return $self::_make_request($token, $method_url, $payload);
+    }
+    public function get_chat($token, $chat_id)
+    {
+        $method_url = 'getChat';
+        $payload = ['chat_id' => $chat_id];
+        return $self::make_request($token, $method_url, $payload);
+    }
+    public function leave_chat($token, $chat_id)
+    {
+        $method_url = 'leaveChat';
+        $payload = ['chat_id' => $chat_id];
+        return $self::_make_request($token, $method_url, $payload);
+    }
+    public function get_chat_administrators($token, $chat_id)
+    {
+        $method_url = 'getChatAdministrators';
+        $payload = ['chat_id' => $chat_id];
+        return $self::_make_request($token, $method_url, $payload);
+    }
+
 }
