@@ -67,7 +67,7 @@ function download_file($token, $file_path)
     $url = "https://api.telegram.org/file/bot{$token}/{$file_path}";
     return file_get_contents($url);
 }
-function send_message($token, $chat_id, $text,
+function send_message_api($token, $chat_id, $text,
     $disable_web_page_preview = null, $reply_to_message_id = null,
     $reply_markup = null, $parse_mode = null, $disable_notification = null) {
 
