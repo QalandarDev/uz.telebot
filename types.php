@@ -36,5 +36,11 @@ class type
     public $message_id;
     public $date;
     public $text;
+    public function to_message($message){
+        foreach ($message as $key => $value){
+        if(key=='message_id') 
+        
+        }
+    }
 
 }
