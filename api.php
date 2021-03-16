@@ -10,7 +10,7 @@ function _make_request($token, $method_name, $method = 'get', $params = null)
     curl_setopt($handle, CURLOPT_POST, true);
     curl_setopt($handle, CURLOPT_POSTFIELDS, json_encode($params));
     curl_setopt($handle, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
-    if (curl_error) {
+    if (curl_error($handle)) {
         return curl_error($handle);
     }
 
