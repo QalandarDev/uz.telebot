@@ -1,6 +1,6 @@
 <?php
 
-function _make_request($token, $method_name, $method = 'get', $params = null)
+function _make_request($token, $method_name, $params = null)
 {
     $request_url = "https://api.telegram.org/bot{$token}/{$method_name}";
     $handle = curl_init($request_url);
@@ -9,10 +9,10 @@ function _make_request($token, $method_name, $method = 'get', $params = null)
     curl_setopt($handle, CURLOPT_TIMEOUT, 60);
     curl_setopt($handle, CURLOPT_POST, true);
     curl_setopt($handle, CURLOPT_POSTFIELDS, json_encode($params));
+    file_put_contents('params.json', json_encode($params, JSON_PRETTY_PRINT));
     curl_setopt($handle, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
-    if (curl_error($handle)) {
-        return curl_error($handle);
-    }
+
+    return _curl_error($handle);
 
 }
 function _curl_error($handle)
@@ -67,7 +67,7 @@ function download_file($token, $file_path)
     $url = "https://api.telegram.org/file/bot{$token}/{$file_path}";
     return file_get_contents($url);
 }
-function send_message_api($token, $chat_id, $text,
+function send_message_api($token, $chat_id, $text = "hello world",
     $disable_web_page_preview = null, $reply_to_message_id = null,
     $reply_markup = null, $parse_mode = null, $disable_notification = null) {
 
@@ -88,7 +88,7 @@ function send_message_api($token, $chat_id, $text,
     if (!is_null($disable_notification)) {
         $payload['disable_notification'] = $disable_notification;
     }
-    return _make_request($token, $method_url, $params = $payload);
+    return _make_request($token, $method_url, $payload);
 }
 function set_webhook($token, $url)
 {
